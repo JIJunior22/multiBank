@@ -1,5 +1,6 @@
 package br.com.DevSuperior.Model;
 
+import br.com.DevSuperior.ExcecaoPersonalizada.MinhaExcecao;
 import br.com.DevSuperior.Interfaces.AcoesBancarias;
 import br.com.DevSuperior.Interfaces.ExtratoBancario;
 import br.com.DevSuperior.Interfaces.ValidarAcoes;
@@ -7,6 +8,7 @@ import br.com.DevSuperior.Interfaces.ValidarAcoes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -23,7 +25,6 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
 
     public void cadastrar() {
         Scanner sc = new Scanner(System.in);
-
         System.out.println("\u001B[33m== DADOS CADASTRAIS ==\u001B[m");
         System.out.print("\u001B[33mNome do titular: \u001B[m");
         setTitular(sc.nextLine());
@@ -39,17 +40,36 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
         System.out.println("\u001B[33mLimite de saque diário R$: \u001B[m" + getLimiteSaque());
         System.out.println("\u001B[34mConta criada com sucesso!\u001B[m");
         System.out.println("\u001B[33m-\u001B[m".repeat(20));
+
+
     }
 
     @Override
     public void depositar() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("\u001B[33mQuanto deseja depositar? R$:\u001B[m");
-        double quantia = sc.nextDouble();
-        setSaldo(getSaldo() + quantia);
-        System.out.println("\u001B[33mDepósito de R$:\u001B[m" + quantia);
-        System.out.println("\u001B[33mSeu saldo atual é R$:\u001B[m" + getSaldo());
-        System.out.println("\u001B[33m-\u001B[m".repeat(20));
+        try {
+            System.out.print("\u001B[33mQuanto deseja depositar? R$:\u001B[m");
+            double quantia = sc.nextDouble();
+            if (quantia <= 0) {
+                throw new MinhaExcecao("\u001B[31mDepósito inválido! Somente valores maiores que zero\u001B[m");
+
+            }
+            setSaldo(getSaldo() + quantia);
+            System.out.println("\u001B[33mDepósito de R$:\u001B[m" + quantia);
+            System.out.println("\u001B[33mSeu saldo atual é R$:\u001B[m" + getSaldo());
+            System.out.println("\u001B[33m-\u001B[m".repeat(20));
+
+            //exceção exibida quando um dado não pode ser convertido em número
+        } catch (InputMismatchException e) {
+            System.out.println("\u001B[31mEntrada inválida. Insira um valor numérico válido.\u001B[m");
+
+            //Exceção personalizada
+        } catch (MinhaExcecao ex) {
+            System.out.println(ex.getMessage());
+        }finally {
+            System.out.println("\u001B[35mO Prime Bank agradece sua confiança!\u001B[m");
+        }
+
     }
 
     @Override
@@ -65,11 +85,13 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
 
             setSaldo((getSaldo() - sacarValor));
             System.out.println("\u001B[33mSaque de R$: \u001B[m" + sacarValor);
-            System.out.printf("\u001B[36mSeu saldo atual é R$ %.2f%n: \u001B[m" , getSaldo());
+            System.out.printf("\u001B[36mSeu saldo atual é R$ %.2f%n: \u001B[m", getSaldo());
             System.out.println("\u001B[33m-\u001B[m".repeat(20));
         } catch (RuntimeException e) {
             //Aqui ele exibe o que foi armazenado na variavel "e",que foi definido no cath
             System.out.println(e.getMessage());
+        }finally {
+            System.out.println("\u001B[35mPrecisa de crédito extra? O Prime Bank tem a solução!\u001B[m");
         }
 
     }

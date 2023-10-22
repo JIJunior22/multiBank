@@ -11,9 +11,14 @@ public class Main {
 
         contaJunior.cadastrar();
         contaJunior.depositar();
+        contaJunior.depositar();
+        contaJunior.depositar();
+
         contaJunior.sacar();
         contaJunior.sacar();
         contaJunior.sacar();
+
+        contaJunior.extrato();
 
 
     }
