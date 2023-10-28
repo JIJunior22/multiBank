@@ -1,14 +1,19 @@
 package br.com.DevSuperior.Model;
 
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class Bank {
     private String titular;
     private String cpf;
     private double saldo=50.00;
     private double limiteSaque=300;
+    private String senha;
+    private boolean logado=false;
     //Deixando o Random aqui, evita que ele gere códigos diferentes para o mesmo objeto
     Random rd=new Random();
+    UUID chaveAutenticacao=UUID.randomUUID();
+
     private int numero=rd.nextInt(1000,9000);
 
     //Construtor vazio
@@ -82,7 +87,21 @@ public abstract class Bank {
         this.limiteSaque = limiteSaque;
     }
 
+    public String getSenha() {
+        return senha;
+    }
 
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public boolean getLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }
     //Metodos
 
 

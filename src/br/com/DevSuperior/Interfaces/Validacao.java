@@ -1,6 +1,6 @@
 package br.com.DevSuperior.Interfaces;
 
 public interface Validacao {
-    void usuario(String user);
-    void senha(String senha);
+    void autenticar(String titularNome, String titularSenha);
+    boolean logar();
 }
