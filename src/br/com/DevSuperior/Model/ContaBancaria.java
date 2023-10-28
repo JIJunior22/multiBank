@@ -38,7 +38,6 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
         System.out.print("\u001B[33mCPF: \u001B[m");
         setCpf(sc.next());
 
-
         System.out.println("\u001B[33m== DADOS DO CLIENTE ==\u001B[m");
         System.out.println("\u001B[33mTitular: \u001B[m" + getTitular().toUpperCase());
         System.out.println("\u001B[33mNumero: \u001B[m" + getNumero());
@@ -47,7 +46,6 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
         System.out.println("\u001B[33mLimite de saque diário R$: \u001B[m" + getLimiteSaque());
         System.out.println("\u001B[34mConta criada com sucesso!\u001B[m");
         System.out.println("\u001B[33m-\u001B[m".repeat(20));
-
 
     }
 
@@ -59,7 +57,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                 System.out.print("\u001B[33mQuanto deseja depositar? R$:\u001B[m");
                 double quantia = sc.nextDouble();
                 if (quantia <= 0) {
-                    throw new MinhaExcecao("\u001B[31mDepósito inválido! Somente valores maiores que zero\u001B[m");
+                    throw new MinhaExcecao("\u001B[31mDEPÓSITO INVÁLIDO! SOMENTE VALORES MAIORES QUE ZERO\u001B[m");
 
                 }
                 setSaldo(getSaldo() + quantia);
@@ -69,13 +67,13 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
 
                 //exceção exibida quando um dado não pode ser convertido em número
             } catch (InputMismatchException e) {
-                System.out.println("\u001B[31mEntrada inválida. Insira um valor numérico válido.\u001B[m");
+                System.out.println("\u001B[31mENTRADA INVÁLIDA. INSIRA UM VALOR NUMÉRICO VÁLIDO.\u001B[m");
 
                 //Exceção personalizada
             } catch (MinhaExcecao ex) {
                 System.out.println(ex.getMessage());
             } finally {
-                System.out.println("\u001B[35mO Prime Bank agradece sua confiança!\u001B[m");
+                System.out.println("\u001B[35mO PRIME BANK AGRADECE SUA CONFIANÇA!\u001B[m");
             }
         }
 
@@ -100,12 +98,11 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                 //Aqui ele exibe o que foi armazenado na variavel "e",que foi definido no cath
                 System.out.println(e.getMessage());
             } finally {
-                System.out.println("\u001B[35mPrecisa de crédito extra? O Prime Bank tem a solução!\u001B[m");
+                System.out.println("\u001B[35mPRECISA DE CRÉDITO EXTRA? O PRIME BANK TEM A SOLUÇÃO!\u001B[m");
             }
 
         }
         //Tenta executar essa instrução
-
     }
 
     @Override
@@ -119,6 +116,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
 
             //horario
             LocalTime horaAtual = LocalTime.now();
+            //Formato brasileiro
             DateTimeFormatter horarioOPeracao = DateTimeFormatter.ofPattern("HH:mm:ss");
             String horaFormatada = horaAtual.format(horarioOPeracao);
 
@@ -143,21 +141,19 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
     public void validarSaque(double valor) {
 
         if (valor > getSaldo()) {
-            throw new RuntimeException("\u001B[31mErro de Saque:Saldo insuficiente!\u001B[m");
+            throw new RuntimeException("\u001B[31mERRO DE SAQUE: SALDO INSUFICIENTE!\u001B[m");
 
         }
         if (valor > getLimiteSaque()) {
-            throw new RuntimeException("\u001B[31mErro de Saque:Valor acima do limite permitido!\u001B[m");
+            throw new RuntimeException("\u001B[31mERRO DE SAQUE: VALOR ACIMA DO LIMITE PERMITIDO!\u001B[m");
 
         }
         if (valor <= 0) {
-            throw new RuntimeException("\u001B[31mErro de Saque:Valor não permitido!\u001B[m") {
+            throw new RuntimeException("\u001B[31mERRO DE SAQUE: VALOR NÃO PERMITIDO!\u001B[m") {
 
             };
 
-
         }
-
 
     }
 
@@ -176,9 +172,8 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                 System.err.println(e);
             }
 
-
-        }else{
-            System.out.println("\u001B[31mUsuário inválido!\u001B[m");
+        } else {
+            System.out.println("\u001B[31mUSUÁRIO INVÁLIDO!\u001B[m");
         }
 
         return user;
@@ -197,7 +192,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                 System.err.println(e);
             }
         } else {
-            System.out.println("\u001B[31mSenha inválida\u001B[m");
+            System.out.println("\u001B[31mSENHA INVÁLIDA\u001B[m");
         }
 
         return password;
@@ -208,7 +203,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
         if (getLogado()) {
             try {
                 if (getTitular().equals(titularNome) && getSenha().equals(titularSenha)) {
-                    System.out.println("\u001B[34mCliente autenticado no internet Banking\u001B[m");
+                    System.out.println("\u001B[34mCLIENTE AUTENTICADO NO INTERNET BANKING\u001B[m");
 
 
                 }
@@ -235,8 +230,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
             setTitular(user);
             setSenha(senha);
             setLogado(true);
-            System.out.println("\u001B[34mCliente logado no internet Banking\u001B[m");
-
+            System.out.println("\u001B[34mCLIENTE LOGADO NO INTERNET BANKING\u001B[m");
         }
         return getLogado();
     }
@@ -264,7 +258,6 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                     }
                     break;
 
-
                 case 2:
                     logar();
                     break;
@@ -273,25 +266,25 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
                     if (getLogado()) {
                         depositar();
                     } else {
-                        System.out.println("\u001B[31mPor favor, faça login antes de fazer um depósito.\u001B[m");
+                        System.out.println("\u001B[31mFAÇA LOGIN ANTES DE FAZER UM DEPÓSITO.\u001B[m");
                     }
                     break;
                 case 4:
                     if (getLogado()) {
                         sacar();
                     } else {
-                        System.out.println("\u001B[31mPor favor, faça login antes de fazer um saque.\u001B[m");
+                        System.out.println("\u001B[31mFAÇA LOGIN ANTES DE FAZER UM SAQUE.\u001B[m");
                     }
                     break;
                 case 5:
                     if (getLogado()) {
                         extrato();
                     } else {
-                        System.out.println("\u001B[31mPor favor, faça login antes de exibir o extrato.\u001B[m");
+                        System.out.println("\u001B[31mFAÇA LOGIN ANTES DE EXIBIR O EXTRATO.\u001B[m");
                     }
                     break;
                 case 6:
-                    System.out.println("Encerrando Sistema...");
+                    System.out.println("\u001B[33mENCERRANDO SISTEMA...\u001B[m");
                     break;
                 default:
                     System.out.println("\u001B[31mOpção Inválida!\u001B[m");

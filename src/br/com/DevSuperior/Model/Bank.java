@@ -102,6 +102,7 @@ public abstract class Bank {
     public void setLogado(boolean logado) {
         this.logado = logado;
     }
+
     //Metodos
 
 
