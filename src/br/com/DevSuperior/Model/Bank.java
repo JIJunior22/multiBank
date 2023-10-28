@@ -52,6 +52,7 @@ public abstract class Bank {
         // Remove todos os caracteres não numéricos do CPF/CNPJ
         this.cpf = cpf.replaceAll("[^0-6]", "");
 
+
         // Verifica se o CNPJ tem 14 dígitos
         if (cpf.length() != 11) {
             throw new IllegalArgumentException("\u001B[31mCPF inválido, deve conter 11 dígitos.\u001B[m");

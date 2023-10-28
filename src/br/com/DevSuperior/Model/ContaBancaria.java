@@ -66,7 +66,7 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
             //Exceção personalizada
         } catch (MinhaExcecao ex) {
             System.out.println(ex.getMessage());
-        }finally {
+        } finally {
             System.out.println("\u001B[35mO Prime Bank agradece sua confiança!\u001B[m");
         }
 
@@ -85,12 +85,12 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
 
             setSaldo((getSaldo() - sacarValor));
             System.out.println("\u001B[33mSaque de R$: \u001B[m" + sacarValor);
-            System.out.printf("\u001B[36mSeu saldo atual é R$ %.2f%n: \u001B[m", getSaldo());
+            System.out.printf("\u001B[36mSeu saldo atual é R$ %.2f%n\u001B[m", getSaldo());
             System.out.println("\u001B[33m-\u001B[m".repeat(20));
         } catch (RuntimeException e) {
             //Aqui ele exibe o que foi armazenado na variavel "e",que foi definido no cath
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             System.out.println("\u001B[35mPrecisa de crédito extra? O Prime Bank tem a solução!\u001B[m");
         }
 
@@ -134,6 +134,13 @@ public class ContaBancaria extends Bank implements AcoesBancarias, ExtratoBancar
         }
         if (valor > getLimiteSaque()) {
             throw new RuntimeException("\u001B[31mErro de Saque:Valor acima do limite permitido!\u001B[m");
+
+        }
+        if (valor <= 0) {
+            throw new RuntimeException("\u001B[31mErro de Saque:Valor não permitido!\u001B[m") {
+
+            };
+
 
         }
 
